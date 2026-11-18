@@ -33,12 +33,6 @@ def init_db():
           boxes INTEGER NOT NULL DEFAULT 0
         );
         """)
-        # One-time demo codes; real deployments should generate batches from admin.
-        if con.execute("SELECT COUNT(*) FROM codes").fetchone()[0] == 0:
-            for _ in range(5):
-                raw = make_code()
-                con.execute("INSERT OR IGNORE INTO codes(code_hash, points) VALUES (?,?)",
-                            (hash_code(raw), POINTS_PER_BOX))
 
 def make_code():
     alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
@@ -149,16 +143,8 @@ def create_codes():
             raw = make_code()
             con.execute("INSERT INTO codes(code_hash,points) VALUES (?,?)", (hash_code(raw), POINTS_PER_BOX))
             generated.append(raw)
-    session["new_codes"] = generated
-    return redirect(url_for("code_batch"))
-
-@app.get("/admin/codes/latest")
-@admin_required
-def code_batch():
-    codes = session.pop("new_codes", [])
-    if not codes:
-        return redirect(url_for("dashboard"))
-    return render_template("codes.html", codes=codes)
+    # Render immediately: raw codes must not be placed in Flask's client-side session cookie.
+    return render_template("codes.html", codes=generated)
 
 @app.get("/health")
 def health():

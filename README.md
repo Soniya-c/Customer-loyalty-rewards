@@ -32,7 +32,7 @@ python app.py
 ```
 Open http://127.0.0.1:5000. Factory login: http://127.0.0.1:5000/admin/login.
 
-The app initializes the SQLite schema and seeds five demo codes on first start. Those demo raw codes are intentionally not printed to logs or shown in the UI; use the admin dashboard to generate a fresh batch for testing/packaging. For a clean local test, remove `rewards.db` and restart.
+The app initializes the SQLite schema on first start. Generate a batch from the admin dashboard before testing or packaging; raw codes are shown only on the immediate batch response and are not stored in the browser session.
 
 ## Tests
 Run `python -m unittest discover -s tests -v`. The suite covers successful redemption, duplicate redemption, unknown codes, and dashboard access. See [TESTS.md](TESTS.md) for manual checks and production test gaps.

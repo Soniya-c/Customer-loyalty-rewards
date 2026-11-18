@@ -13,5 +13,5 @@
 | Dashboard scope | Customer balances, aggregate counts, and recent redemptions | Covers the owner's basic view/manage/monitor needs without adding analytics complexity. |
 | Deployment | Local runnable app; no hosting provider or domain supplied | A deployed URL cannot be truthfully provided without deployment credentials and infrastructure. |
 | Database | SQLite for single-instance demonstration | Zero external services and easy local setup; production multi-instance deployments should use PostgreSQL. |
-| Initial codes | Seed a small number of demo code hashes on first run | Makes the first run schema-ready; actual packaging batches should be generated from admin. |
+| Initial codes | Start with an empty code inventory; admin generates the first batch | Avoids inserting demo code hashes whose raw values are unavailable for redemption. |
 | Abuse controls | Unique code hashes, single-use state, transactional redemption, and basic input validation | Core replay protection; production also needs throttling, CSRF, monitoring, and operational controls. |
